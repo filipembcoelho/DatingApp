@@ -2,6 +2,9 @@
   <!--We have to declare the elvis oeprator so the module doesn't send an error, when loading before receiving the user data-->
   <!-- {{user?.knownAs}} -->
   <div class="row">
+    <h1>{{user.knownAs}}</h1>
+  </div>
+  <div class="row">
     <div class="col-sm-4">
       <div class="card">
         <img class="card-img-top img-thumbnail" src="{{user.photoUrl}}" alt="{{user.knownAs}}">
