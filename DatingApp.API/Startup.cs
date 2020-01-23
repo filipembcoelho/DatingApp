@@ -41,8 +41,7 @@ namespace DatingApp.API
                 x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
             );
 
-            services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddScoped<IDatingRepository, DatingRepository>();
+            
 
             services.AddControllers().AddNewtonsoftJson(opt =>
             {
@@ -51,7 +50,12 @@ namespace DatingApp.API
 
             services.AddCors();
 
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+
             services.AddAutoMapper(typeof(DatingRepository).Assembly);
+
+            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IDatingRepository, DatingRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
