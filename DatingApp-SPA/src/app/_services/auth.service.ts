@@ -25,7 +25,6 @@ export class AuthService {
   }
 
   login(model: any) {
-    console.log(this.baseUrl + 'login');
     return this.http
       .post(this.baseUrl + 'login', model)
       .pipe(
