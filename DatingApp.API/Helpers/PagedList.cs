@@ -29,7 +29,10 @@ namespace DatingApp.API.Helpers
       // pageSize = 5
       var count = await source.CountAsync(); // 13
       // PageNumber = 2 (skip (2 - 1) * 5) - skips the first five elements and returns the next 5
-      var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+      var items = await source
+          .Skip((pageNumber - 1) * pageSize)
+          .Take(pageSize)
+          .ToListAsync();
       return new PagedList<T>(items, count, pageNumber, pageSize);
     }
   }

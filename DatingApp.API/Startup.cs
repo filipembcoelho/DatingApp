@@ -35,13 +35,31 @@ namespace DatingApp.API
     // This method gets called by the runtime. Use this method to add services to the container.
     // Dependency Injection Container
     // Services ethod order is not important
+
+    public void ConfigureDevelopmentServices(IServiceCollection services)
+    {
+      services.AddDbContext<DataContext>(x =>
+      {
+        x.UseLazyLoadingProxies();
+        x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+      });
+
+      ConfigureServices(services);
+    }
+
+    public void ConfigureProductionServices(IServiceCollection services)
+    {
+      services.AddDbContext<DataContext>(x =>
+      {
+        x.UseLazyLoadingProxies();
+        x.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
+      });
+
+      ConfigureServices(services);
+    }
+
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddDbContext<DataContext>(
-          x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
-      );
-
-
 
       services.AddControllers().AddNewtonsoftJson(opt =>
       {

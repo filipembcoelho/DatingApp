@@ -46,7 +46,7 @@ namespace DatingApp.API.Data
     public async Task<User> GetUser(int id)
     {
       var user = await _context.Users
-          .Include(x => x.Photos)
+          // .Include(x => x.Photos)
           .FirstOrDefaultAsync(p => p.Id == id);
 
       return user;
@@ -60,7 +60,7 @@ namespace DatingApp.API.Data
       //                           .ToListAsync();
       // After pagination
       var users = _context.Users
-        .Include(p => p.Photos)
+        // .Include(p => p.Photos)
         .OrderByDescending(user => user.LastActive)
         .AsQueryable();
 
@@ -107,8 +107,8 @@ namespace DatingApp.API.Data
     private async Task<IEnumerable<int>> GetUserLikes(int id, bool likers)
     {
       var user = await _context.Users
-        .Include(x => x.Likers)
-        .Include(x => x.Likees)
+        // .Include(x => x.Likers)
+        // .Include(x => x.Likees)
         .FirstOrDefaultAsync(u => u.Id == id);
 
       if (likers)
@@ -134,8 +134,8 @@ namespace DatingApp.API.Data
     public async Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams)
     {
       var messages = _context.Messages
-            .Include(u => u.Sender).ThenInclude(p => p.Photos)
-            .Include(u => u.Recipient).ThenInclude(p => p.Photos)
+            // .Include(u => u.Sender).ThenInclude(p => p.Photos)
+            // .Include(u => u.Recipient).ThenInclude(p => p.Photos)
             .AsQueryable();
 
       switch (messageParams.MessageContainer)
@@ -159,8 +159,8 @@ namespace DatingApp.API.Data
     {
       // Chat method
       var messages = await _context.Messages
-            .Include(u => u.Sender).ThenInclude(p => p.Photos)
-            .Include(u => u.Recipient).ThenInclude(p => p.Photos)
+            // .Include(u => u.Sender).ThenInclude(p => p.Photos)
+            // .Include(u => u.Recipient).ThenInclude(p => p.Photos)
             .Where(m => m.RecipientId == userId && m.RecipientDeleted == false && m.SenderId == recipientId ||
                 m.RecipientId == recipientId && m.SenderDeleted == false && m.SenderId == userId)
             .OrderByDescending(m => m.MessageSent)
